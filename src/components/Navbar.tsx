@@ -3,9 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom'; // Import useLocation
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
-  // Ensure the '/' path is unique if 'About Me' is also '/'
-  // Assuming '/' is meant to be 'Home' or similar. Let's map 'About Me' to '/' for this example.
-  { path: '/', label: 'About Me' }, // Changed label assuming '/' is About Me page
+  { path: '/', label: 'Home' },
+  { path: '/about-me', label: 'About Me' }, // Changed label assuming '/' is About Me page
   { path: '/how-to-operate', label: 'How To Operate' },
   { path: '/formal-email', label: 'Formal Email' },
   { path: '/exposition-text', label: 'Exposition Text' },
@@ -50,7 +49,7 @@ const Navbar: React.FC = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       // navbar-container class provides base styling (bg, shadow, etc.)
-      className="navbar-container"
+      className="navbar-container backdrop-blur-xs"
     >
       {/* Wrapper for layout: centers content, handles mobile toggle positioning */}
       <div className="container mx-auto flex flex-wrap items-center justify-between px-4 md:px-0"> {/* Added padding for mobile */}
