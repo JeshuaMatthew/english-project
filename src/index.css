@@ -1,0 +1,256 @@
+/* styles.css or index.css */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+@plugin "@tailwindcss/typography";
+
+/* Define some color variables for consistency (optional but recommended) */
+:root {
+  --color-bg-base: #0a0a0a; /* Near black base */
+  --color-bg-surface-transparent: rgba(20, 20, 22, 0.8); /* Slightly darker, less gray surface */
+  --color-text-primary: #e5e5e5; /* Slightly brighter primary text */
+  --color-text-secondary: #a0a0a0;
+  --color-accent: #646cff;
+  --color-accent-light: #818aff;
+  --color-accent-lighter: #a3aaff;
+  --color-border-subtle: rgba(100, 108, 255, 0.15); /* Accent-based border */
+  --color-border-medium: #374151; /* gray-700 */
+  --glow-accent-soft: 0 0 12px rgba(100, 108, 255, 0.35); /* Softer glow */
+  --glow-accent-medium: 0 0 10px rgba(129, 138, 255, 0.5); /* Link hover glow */
+}
+
+ol {
+  list-style: decimal;
+  padding-left: 2rem;
+}
+
+ul {
+  list-style:disc;
+  padding-left: 2rem;
+}
+
+
+/* --- Body Background Fallback (Tailwind usually handles this) --- */
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
+
+/* --- Navbar Specific --- */
+.navbar-container { /* Add this class to the <nav> in Navbar.tsx */
+  background-color: var(--color-bg-surface-transparent); /* Use variable, slightly darker */
+  backdrop-filter: blur(12px); /* Slightly stronger blur */
+  -webkit-backdrop-filter: blur(12px);
+  /* Softer shadow, less pure black */
+  box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.2), 0 2px 6px -2px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 0.8rem 1rem; /* Adjusted padding slightly */
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Very subtle bottom border */
+}
+
+.navbar-container ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem; /* Spacing between items */
+  list-style: none;
+  padding: 0;
+  margin: 0 auto; /* Center the list */
+  max-width: 1280px; /* Optional: Limit nav width */
+}
+
+.navbar-link { /* Add this class to NavLink in Navbar.tsx */
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 0.875rem; /* text-sm */
+  position: relative; /* For potential pseudo-element animations */
+}
+@media (min-width: 768px) {
+  .navbar-link {
+    font-size: 1rem; /* text-base on md screens */
+  }
+  .navbar-container ul {
+     justify-content: flex-start; /* Align left on larger screens */
+  }
+}
+
+.navbar-link:hover {
+  color: var(--color-text-primary);
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.navbar-link.active { /* This class is automatically added by NavLink */
+  color: var(--color-accent-lighter); /* Use lighter accent for better visibility */
+  font-weight: 600;
+  box-shadow: var(--glow-accent-soft); /* Use variable for glow */
+  background-color: rgba(100, 108, 255, 0.1); /* Subtle background tint */
+  transform: translateY(-1px); /* Keep consistent positioning feel */
+}
+
+
+/* --- Page Wrapper & Content --- */
+.page-content-wrapper { /* Add this class to the motion.div in PageWrapper.tsx */
+  max-width: 800px; /* Limit content width for readability */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem 2rem 1rem; /* Horizontal padding, bottom padding */
+}
+
+.page-title { /* Add this class to the <h1> in MarkdownDisplayPage.tsx */
+  font-size: 2.25rem; /* text-3xl */
+  line-height: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border-medium);
+  padding-bottom: 0.5rem;
+  text-shadow: 0 0 5px rgba(229, 229, 229, 0.1); /* Subtle text glow */
+}
+@media (min-width: 768px) {
+  .page-title {
+    font-size: 2.75rem; /* text-4xl */
+    line-height: 1;
+  }
+}
+
+.markdown-container { /* Add this class to the div wrapping ReactMarkdown */
+  background-color: rgba(20, 20, 22, 0.75); /* Use similar dark surface, slightly less transparent */
+  border: 1px solid var(--color-border-subtle); /* Use variable */
+  padding: 1.5rem;
+  border-radius: 0.5rem; /* rounded-lg */
+  /* Softer base shadow + subtle accent glow pulse */
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+  /* Apply subtle pulsing glow animation */
+  animation: subtleGlowPulse 4s ease-in-out infinite;
+}
+@media (min-width: 768px) {
+  .markdown-container {
+     padding: 2rem; /* p-8 */
+  }
+}
+
+/* Define the glow pulse animation */
+@keyframes subtleGlowPulse {
+  0%, 100% {
+    border-color: var(--color-border-subtle);
+    /* Match base box-shadow */
+    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    border-color: rgba(100, 108, 255, 0.25); /* Pulse border alpha */
+    /* Add subtle accent glow to existing shadow */
+    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -4px rgba(0, 0, 0, 0.2), 0 0 20px rgba(100, 108, 255, 0.1);
+  }
+}
+
+
+/* --- Markdown Content Styling (Inside .markdown-container) --- */
+.markdown-content {
+  max-width: none;
+  line-height: 1.7; /* Slightly increased line-height for readability */
+}
+
+/* Headings */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  color: var(--color-text-primary);
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+  font-weight: 600;
+}
+.markdown-content h1 { font-size: 1.8em; }
+.markdown-content h2 { font-size: 1.5em; border-bottom: 1px solid var(--color-border-medium); padding-bottom: 0.3em; }
+.markdown-content h3 { font-size: 1.25em; }
+.markdown-content h4 { font-size: 1.1em; }
+
+/* Links */
+.markdown-content a {
+   color: var(--color-accent-light); /* Use variable */
+   text-decoration: none;
+   transition: color 0.2s ease, text-shadow 0.3s ease, border-color 0.2s ease;
+   font-weight: 500;
+   border-bottom: 1px dotted rgba(129, 138, 255, 0.4); /* Subtle underline */
+}
+.markdown-content a:hover {
+   color: var(--color-accent-lighter); /* Brighter on hover */
+   text-shadow: var(--glow-accent-medium); /* Use variable for glow */
+   border-bottom-style: solid;
+   border-bottom-color: rgba(163, 170, 255, 0.6); /* Slightly stronger border */
+}
+
+/* Paragraphs, Lists, Blockquotes */
+.markdown-content p,
+.markdown-content ul,
+.markdown-content ol,
+.markdown-content blockquote {
+  color: #c8c8c8; /* Adjusted mid-tone text color for dark bg */
+  margin-bottom: 1.25em;
+}
+.markdown-content li { margin-bottom: 0.5em; }
+.markdown-content ul, .markdown-content ol { padding-left: 1.5em; }
+.markdown-content blockquote {
+  border-left: 4px solid var(--color-accent); /* Use variable */
+  padding-left: 1em;
+  margin-left: 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  background-color: rgba(100, 108, 255, 0.03); /* Very subtle bg tint */
+}
+
+
+/* Code Blocks */
+.markdown-content pre {
+   /* Darker, less transparent code background */
+   background-color: rgba(10, 10, 12, 0.85);
+   padding: 1rem;
+   border-radius: 0.375rem; /* rounded-md */
+   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3); /* Slightly deeper inset shadow */
+   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+   overflow-x: auto;
+   font-size: 0.9em;
+   line-height: 1.5;
+   margin-top: 1.5em;
+   margin-bottom: 1.5em;
+   border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle light border */
+}
+.markdown-content pre code {
+    /* Reset styles that might be inherited */
+    background-color: transparent;
+    color: inherit; /* Ensure text color inside is rendered correctly by syntax highlighter */
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    font-weight: normal;
+}
+
+/* Inline Code */
+.markdown-content code:not(pre > code) {
+    background-color: rgba(100, 108, 255, 0.15); /* bg-accent-glow with alpha */
+    color: var(--color-accent-lighter); /* Brighter accent for code */
+    padding: 0.15em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-weight: 500;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Horizontal Rule */
+.markdown-content hr {
+  border: none;
+  /* Dashed accent color line */
+  border-top: 1px dashed var(--color-accent-light);
+  opacity: 0.5; /* Make it less prominent */
+  margin: 2.5em 0;
+}
