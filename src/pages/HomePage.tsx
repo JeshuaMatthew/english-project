@@ -55,11 +55,11 @@ const HomePage: React.FC = () => {
     >
       {/* Hero Section */}
       <motion.h1
-        className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-[var(--color-accent-lighter)] via-[var(--color-accent-light)] to-[var(--color-accent)] bg-clip-text text-transparent"
+        className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4"
         variants={itemVariants}
         style={{ textShadow: 'var(--glow-accent-soft)' }} // Apply subtle glow
       >
-        Welcome everyone...
+        Welcome everyone👋😊
       </motion.h1>
 
       <motion.p
