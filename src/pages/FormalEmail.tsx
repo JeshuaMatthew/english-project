@@ -31,6 +31,9 @@ const FormalEmail: React.FC = () => {
 
   return (
     <PageWrapper>
+      <h1 className="page-title">
+        Formal Email 📧
+      </h1>
       <div className="email-container">
       <div className="email-header">
         <p>
